@@ -81,7 +81,7 @@ function App() {
 
   return (
     <>
-      <nav className="flex justify-between items-center px-10 h-14 border-b shadow fixed w-full bg-white">
+      <nav className="flex justify-between z-50 items-center px-10 h-14 border-b shadow fixed w-full bg-white">
         <h1 className="text-2xl font-bold">Shopping Cart</h1>
         <div className="flex items-center gap-6">
           <button onClick={handleWishListClick} className="flex items-center text-xl py-1 px-2 gap-1 rounded shadow border hover:shadow-red-500 hover:text-red-500 transition-all duration-150">
@@ -99,7 +99,7 @@ function App() {
       </nav>
 
       <div
-        className={`fixed flex flex-col top-20 min-w-96 right-10 p-3 bg-white border transition-all duration-150 shadow-lg ${
+        className={`fixed flex flex-col z-50 top-20 min-w-96 right-10 p-3 bg-white border transition-all duration-150 shadow-lg ${
           !isWishListActive && "hidden"
         }`}
       >
@@ -157,7 +157,7 @@ function App() {
       </div>
 
       <div
-        className={`fixed flex flex-col top-20 min-w-96 right-10 p-3 bg-white border transition-all duration-150 shadow-lg ${
+        className={`fixed flex flex-col top-20 min-w-96 right-10 p-3 bg-white border transition-all duration-150 shadow-lg z-50 ${
           !isCartActive && "hidden"
         }`}
       >

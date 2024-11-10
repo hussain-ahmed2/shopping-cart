@@ -13,6 +13,7 @@ function Product({
   setWishList,
 }) {
   const [wished, setWished] = useState(false);
+  const [addToCartPopup, setAddToCartPopup] = useState(false);
 
   function descriptionMinimizer(description) {
     if (description.length > 50) {
@@ -46,6 +47,9 @@ function Product({
 
       return exists ? updatedCart : [...updatedCart, product];
     });
+
+    setAddToCartPopup(true);
+    setTimeout(() => setAddToCartPopup(false), 2000);
   }
 
   function handleWishClick() {
@@ -87,7 +91,7 @@ function Product({
   }, [wished, wishList]);
 
   return (
-    <div className="flex flex-col border shadow basis-[240px] hover:border-yellow-500 transition-all duration-100 rounded-md">
+    <div className="flex flex-col border shadow basis-[240px] hover:border-yellow-500 transition-all duration-100 rounded-md relative">
       <img
         className="w-full max-w-60 max-h-60"
         src={thumbnail}
@@ -111,6 +115,9 @@ function Product({
         <h3 className="text-lg font-semibold">{title}</h3>
         <p className="text-sm">{descriptionMinimizer(description)}</p>
       </div>
+      {
+        addToCartPopup && <span className="absolute top-10 right-5 z-10 bg-green-200 bg-opacity-65 rounded px-3 py-1 transition-all duration-200 shadow-sm">Product Added</span>
+      }
     </div>
   );
 }
