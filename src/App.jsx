@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Product from "./components/Product";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaListCheck } from "react-icons/fa6";
+import { FaTrash } from "react-icons/fa";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -29,6 +30,49 @@ function App() {
   }
   function handleClearWishList() {
     setWishList([]);
+  }
+
+  function handleQuantityIncrease(id) {
+    setCart(prev => {
+      const newCart = prev.map(item => {
+        if (item.id === id) {
+          return {...item, quantity: item.quantity+1}
+        }
+
+        return item;
+      })
+
+      return newCart;
+    })
+  }
+
+  function handleQuantityDecrease(id) {
+    setCart(prev => {
+      const newCart = prev.map(item => {
+        if (item.id === id) {
+          return { ...item, quantity: item.quantity - 1 > 0 ? item.quantity - 1 : 0}
+        }
+
+        return item;
+      })
+
+      return newCart;
+    })
+  }
+
+  function handleCartRemove(id) {
+    setCart(prev => {
+      const newCart = prev.filter(item => item.id !== id)
+
+      return newCart;
+    })
+  }
+
+  function handleWishRemove(id) {
+    setWishList(prev =>  {
+      const newWishList = prev.filter(item => item.id !== id);
+      return newWishList;
+    })
   }
 
   useEffect(() => {
@@ -95,6 +139,7 @@ function App() {
                     {item.title}
                   </td>
                   <td>{item.price}</td>
+                  <td><FaTrash className="hover:text-red-500 cursor-pointer" onClick={() => handleWishRemove(item.id)} /></td>
                 </tr>
               ))
             )}
@@ -152,8 +197,9 @@ function App() {
                     />
                     {item.title}
                   </td>
-                  <td>{item.quantity}</td>
+                  <td><button disabled={!item.quantity} className={`font-bold text-xl text-red-500 me-2 ${!item.quantity && 'cursor-not-allowed'}`} onClick={() => handleQuantityDecrease(item.id)}>-</button> {item.quantity} <button className="font-bold ms-2 text-xl text-emerald-500" onClick={() => handleQuantityIncrease(item.id)}>+</button></td>
                   <td>{(item.price * item.quantity).toFixed(2)}</td>
+                  <td><FaTrash className="hover:text-red-500 cursor-pointer" onClick={() => handleCartRemove(item.id)} /></td>
                 </tr>
               ))
             )}

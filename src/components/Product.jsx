@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
+import proptypes from 'prop-types'
 
 function Product({
   id,
@@ -115,3 +116,15 @@ function Product({
 }
 
 export default Product;
+
+
+Product.propTypes = {
+  id: proptypes.any.isRequired,
+  title: proptypes.string.isRequired,
+  thumbnail: proptypes.string.isRequired,
+  description: proptypes.string.isRequired,
+  price: proptypes.number.isRequired,
+  setCart: proptypes.func.isRequired,
+  wishList: proptypes.array.isRequired,
+  setWishList: proptypes.func.isRequired,
+}
